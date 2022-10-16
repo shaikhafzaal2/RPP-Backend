@@ -16,7 +16,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var products = require('./routes/products');
 var protects = require('./middleware/protects');
-var books = require('./routes/books');
+var companys = require('./routes/companys');
 var fileuploads = require('./routes/fileuploads');
 var items = require('./routes/items');
 var drivers = require('./routes/drivers');
@@ -60,7 +60,7 @@ app.use(require('morgan')('short'));
 app.use('/', index);
 
 
-app.use('/books', books);
+app.use('/companys', companys);
 app.use('/users', users);
 app.use('/api', protects);
 app.use('/products', products);

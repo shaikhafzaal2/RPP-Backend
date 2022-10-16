@@ -24,7 +24,7 @@ let Test = require('../models/Test.js');
  *         description: Successfully created
  */
 router.post('/', (req,res, next) => {
-  //  Test.create(req.body, (err,book) => {
+  //  Test.create(req.body, (err,company) => {
   //     if(err) return next(err);
   //     res.json(test);
   //  });

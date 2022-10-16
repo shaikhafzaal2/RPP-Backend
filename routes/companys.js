@@ -1,78 +1,78 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-let Book = require('../models/Book.js');
+let Company = require('../models/Company.js');
 
 
 
 /**
 * @swagger
-* /books:
+* /companys:
 *   get:
 *     tags:
-*       - Books
-*     description: Return a single book
+*       - Companys
+*     description: Return a single company
 *     produces:
 *       - application/json
 *     responses:
 *       200:
-*         description: A book list
+*         description: A company list
 *         schema:
-*           $ref: '#/definitions/Book'
+*           $ref: '#/definitions/Company'
 *
 */
 router.get('/', (req,res,next)=> {
-  Book.find((err,books) => {
+  Company.find((err,companys) => {
      if(err) return next(err);
-     res.json(books);
+     res.json(companys);
   });
 });
 
 /**
 * @swagger
-* /books/{id}:
+* /companys/{id}:
 *   get:
 *     tags:
-*       - Books
-*     description: Return a single book
+*       - Companys
+*     description: Return a single company
 *     produces:
 *       - application/json
 *     parameters:
 *       - name: id
-*         description: BookId
+*         description: CompanyId
 *         in: path
 *         required: true
 *         type: string
 *     responses:
 *       200:
-*         description: A single book
+*         description: A single company
 *         schema:
-*           $ref: '#/definitions/Book'
+*           $ref: '#/definitions/Company'
 *
 */
 router.get('/:id', (req,res,next) => {
-  Book.findById(req.params.id, (err,book) => {
+  Company.findById(req.params.id, (err,company) => {
     if(err) return next(err);
-    res.json(book);
+    res.json(company);
   });
 });
 
 /**
  * @swagger
- * /books:
+ * /companys:
  *   post:
  *     tags:
- *       - Books
- *     description: Creates a new book
+ *       - Companys
+ *     description: Creates a new company
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: book
- *         description: Book object
+ *       - name: company
+ *         description: Company object
  *         in: body
  *         required: true
  *         schema:
- *           $ref: '#/definitions/Book'
+ *           $ref: '#/definitions/Company'
  *     responses:
  *       200:
  *         description: Successfully created
@@ -82,90 +82,90 @@ router.get('/:id', (req,res,next) => {
  *         description: Not found or record not found
  */
 router.post('/', (req,res, next) => {
-  //  Book.create(req.body, (err,book) => {
+  //  Company.create(req.body, (err,company) => {
   //     if(err) return next(err);
-  //     res.json(book);
+  //     res.json(company);
   //  });
-   var newBook = new Book(req.body);
+   var newCompany = new Company(req.body);
 
-   newBook.save((err,book) => {
+   newCompany.save((err,company) => {
       if(err) {
         res.send(err);
       } else {
-        res.json({message:"Book saved successfully", book: book })
+        res.json({message:"Company saved successfully", company: company })
       }
    });
 });
 
 /**
 * @swagger
-*   /books/{id}:
+*   /companys/{id}:
 *     put:
 *        tags:
-*         - Books
-*        description: Update the book information
+*         - Companys
+*        description: Update the company information
 *        produces:
 *         - application/json
 *        parameters:
 *         - name: id
-*           description: "using for update the book information"
+*           description: "using for update the company information"
 *           in: path
 *           required: true
 *           type: string
-*         - name: book
-*           description : "book information "
+*         - name: company
+*           description : "company information "
 *           in: body
 *           required : true
 *           schema:
-*             $ref: '#/definitions/Book'
+*             $ref: '#/definitions/Company'
 *        responses:
 *           200:
-*               description: book update successfully
+*               description: company update successfully
 *           400:
 *               description: Unauthorized access to api
 *           404:
 *               description: Not found or record not found
 */
 router.put('/:id', (req,res,next) => {
-  Book.findByIdAndUpdate(req.params.id, req.body, (err,book) => {
+  Company.findByIdAndUpdate(req.params.id, req.body, (err,company) => {
     if(err) return next(err);
-    res.json(book);
+    res.json(company);
   });
 });
 
 /**
 * @swagger
-*   /books/{id}:
+*   /companys/{id}:
 *     delete:
 *        tags:
-*         - Books
-*        description: Deleted the book information
+*         - Companys
+*        description: Deleted the company information
 *        produces:
 *         - application/json
 *        parameters:
 *         - name: id
-*           description: "using for delete the book information"
+*           description: "using for deleting the company information"
 *           in: path
 *           required: true
 *           type: string
-*         - name: book
-*           description : "book information "
+*         - name: company
+*           description : "company information "
 *           in: body
 *           required : true
 *           schema:
-*             $ref: '#/definitions/Book'
+*             $ref: '#/definitions/Company'
 *        responses:
 *           200:
-*               description: book delete successfully
+*               description: company delete successfully
 *           400:
 *               description: Unauthorized access to api
 *           404:
 *               description: Not found or record not found
 */
 router.delete('/:id',(req,res, next) => {
-  Book.findByIdAndRemove(req.params.id, req.body, (err, book) => {
+  Company.findByIdAndRemove(req.params.id, req.body, (err, company) => {
     if(err) return next(err);
-    res.json(book);
+    res.json(company);
   });
 });
 

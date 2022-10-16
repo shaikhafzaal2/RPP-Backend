@@ -17,7 +17,7 @@ router.get('/', (req,res,next)=> {
 *   get:
 *     tags:
 *       - Items
-*     description: Return a single book
+*     description: Return a single company
 *     produces:
 *       - application/json
 *     parameters:

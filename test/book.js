@@ -1,7 +1,7 @@
 process.env.NODE_ENV ='test';
 
 let mongoose = require("mongoose");
-let Book = require("../models/Book");
+let Company = require("../models/Company");
 
 
 let chai = require('chai');
@@ -13,13 +13,13 @@ let should = chai.should();
 chai.use(chaiHttp);
 
 
-describe('Books', () => {
+describe('Companys', () => {
 
-  describe('/GET books', () => {
+  describe('/GET companys', () => {
 
-     it('it should GET all the books', (done) => {
+     it('it should GET all the companys', (done) => {
        chai.request(server)
-          .get('/books')
+          .get('/companys')
           .end((err,res) => {
             res.should.have.status(200);
             res.body.should.be.a('array');
@@ -29,17 +29,17 @@ describe('Books', () => {
      });
   });
 
-  describe('/POST book', ()=> {
-    it('it should not POST book without pages field', (done) => {
-       let book = {
-         title: "My text book 1",
+  describe('/POST company', ()=> {
+    it('it should not POST company without pages field', (done) => {
+       let company = {
+         title: "My text company 1",
          author: "Tariqul islam",
          year: 1990
        };
 
        chai.request(server)
-          .post("/books")
-          .send(book)
+          .post("/companys")
+          .send(company)
           .end((err,res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');

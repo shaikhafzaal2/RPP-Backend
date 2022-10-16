@@ -81,9 +81,9 @@ router.get('/:id', (req,res,next) => {
  *         description: Not found or record not found
  */
 router.post('/', (req,res, next) => {
-  //  Book.create(req.body, (err,reset) => {
+  //  Company.create(req.body, (err,reset) => {
   //     if(err) return next(err);
-  //     res.json(book);
+  //     res.json(company);
   //  });
    var newPassword = new Reset(req.body);
 
