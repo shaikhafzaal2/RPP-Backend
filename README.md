@@ -32,15 +32,8 @@ Installation process is easy, you can only download or clone application from gi
 ## Usage and instructions
 I have use Dotenv for setup the environment variable for primary configuration of different plugins of the project:
 
-1. For database configuration, I have provide the info at .env file to use mongoose(driver for mongodb for node) for this project.
 
-```javascript
-DB_NAME = ryder
-DB_HOST = localhost
-DB_PORT = 27017
-DB_USER = rony
-DB_PASS = rony123
-```
+
 **Database configuration:**
 
       DB_NAME = (mongodb database name)
