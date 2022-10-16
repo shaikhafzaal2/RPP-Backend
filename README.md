@@ -124,7 +124,7 @@ For product routes (e,g) routes/products.js
  *     responses:
  *       200:
  *         description: Successfully created
- */
+ */5
 router.post('/', (req,res,next) =>{
   Product.saveProduct(req.body, (results) =>{
     res.json(results);
@@ -132,7 +132,7 @@ router.post('/', (req,res,next) =>{
 });
 ```
   Swagger UI activity
-  ![alt text](https://github.com/tariqulislam/express-starter-kit/blob/develop/public/images/swagger.png)
+  ![alt text](https://github.com/shaikhafzaal2/RPP-Backend/blob/main/public/images/swagger.png)
 
   We are using Es Lint for monitoring and standarized the coding format
 ```javascript
