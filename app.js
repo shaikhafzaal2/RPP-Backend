@@ -14,22 +14,23 @@ var multer = require('multer');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var products = require('./routes/products');
-var protects = require('./middleware/protects');
+// var products = require('./routes/products');
+// var protects = require('./middleware/protects');
 var companys = require('./routes/companys');
-var fileuploads = require('./routes/fileuploads');
-var items = require('./routes/items');
-var drivers = require('./routes/drivers');
-var resets = require('./routes/resets');
-var vehicletypes = require('./routes/vehicle/vehicletypes');
-var emails = require('./routes/emails');
-var uploads = require('./routes/uploads');
+// var fileuploads = require('./routes/fileuploads');
+// var items = require('./routes/items');
+// var drivers = require('./routes/drivers');
+// var resets = require('./routes/resets');
+// var vehicletypes = require('./routes/vehicle/vehicletypes');
+// var emails = require('./routes/emails');
+// var uploads = require('./routes/uploads');
 
 
 var app = express();
 global.__base = __dirname + "/"
 var swaggerJsDoc = require('swagger-jsdoc');
 var swaggerconf = require('./config/swaggerconf');
+const authMiddleware = require('./middleware/checkAuth');
 
 
 var swaggerSpec = swaggerJsDoc(swaggerconf.swaggerOptions);
@@ -62,15 +63,15 @@ app.use('/', index);
 
 app.use('/companys', companys);
 app.use('/users', users);
-app.use('/api', protects);
-app.use('/products', products);
-app.use('/vehicletypes', vehicletypes);
-app.use('/fileuploads', fileuploads);
-app.use('/items', items);
-app.use('/drivers', drivers);
-app.use('/emails', emails);
-app.use('/resets', resets);
-app.use('/uploads', uploads);
+// app.use('/api', protects);
+// app.use('/products', products);
+// app.use('/vehicletypes', vehicletypes);
+// app.use('/fileuploads', fileuploads);
+// app.use('/items', items);
+// app.use('/drivers', drivers);
+// app.use('/emails', emails);
+// app.use('/resets', resets);
+// app.use('/uploads', uploads);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -97,7 +98,7 @@ app.use(allowCrossDomain);
 //   useMongoClient: true,
 //   /* other options */
 // });
-//
+
 // dbConnect.then( function(db){
 //   console.log("Connection is Okay for database", db);
 // });

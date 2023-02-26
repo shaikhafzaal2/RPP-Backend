@@ -2,6 +2,8 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 let Company = require('../models/Company.js');
+const { CompanyService } = require('../services/company/CompanyService.js');
+const authMiddleware = require('../middleware/checkAuth.js');
 
 
 
@@ -22,9 +24,10 @@ let Company = require('../models/Company.js');
 *
 */
 router.get('/', (req,res,next)=> {
-  Company.find((err,companys) => {
-     if(err) return next(err);
-     res.json(companys);
+  CompanyService.allCompanies((result)=>{
+    console.log(result);
+    //  if(err) return next(err);
+     res.json(result);
   });
 });
 
@@ -61,6 +64,8 @@ router.get('/:id', (req,res,next) => {
  * @swagger
  * /companys:
  *   post:
+ *     security:
+ *       - Bearer: []  
  *     tags:
  *       - Companys
  *     description: Creates a new company
@@ -81,7 +86,7 @@ router.get('/:id', (req,res,next) => {
  *       404:
  *         description: Not found or record not found
  */
-router.post('/', (req,res, next) => {
+router.post('/',authMiddleware, (req,res, next) => {
   //  Company.create(req.body, (err,company) => {
   //     if(err) return next(err);
   //     res.json(company);
