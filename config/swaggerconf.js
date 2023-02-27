@@ -8,6 +8,13 @@ var swaggerconf = {
          },
          host: process.env.SWAGGER_HOST,
          basePath: process.env.SWAGGER_BASE_PATH,
+         securityDefinitions: {
+          Bearer: {
+            type: 'apiKey',
+            name: 'Authorization',
+            in: 'header'
+          }
+        }
        },
      apis:['./routes/*.js', './models/*.js', './routes/**/*.js'],
     }
