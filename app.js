@@ -31,6 +31,7 @@ global.__base = __dirname + "/"
 var swaggerJsDoc = require('swagger-jsdoc');
 var swaggerconf = require('./config/swaggerconf');
 const authMiddleware = require('./middleware/checkAuth');
+const cors = require('cors');
 
 
 var swaggerSpec = swaggerJsDoc(swaggerconf.swaggerOptions);
@@ -47,7 +48,7 @@ app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

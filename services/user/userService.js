@@ -20,7 +20,7 @@ module.exports.UserService = {
         User.create(newUser, function (err, post) {
           if (err) return next(err);
           console.log('User Saved Succesfully');
-          cb ({ success: false, message: ' User not found new account created',user:post });
+          cb ({ success: true, message: ' User not found new account created',user:post });
           
         });
         
@@ -45,6 +45,13 @@ module.exports.UserService = {
       if (err) cb(err);       
       cb (users)      
     });
-  }
+  },
+  
+  deleteAllUser:(cb) =>{
+    User.deleteMany({ }).then(()=> cb({success: true,"message":"data deleted successfully"}))
+      
+      
+    }
+  
 
 }

@@ -21,6 +21,7 @@
     "body-parser": "~1.17.1",
     "busboy": "^0.2.14",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
     "debug": "~2.6.3",
     "dotenv": "^4.0.0",
     "express": "~4.15.2",
@@ -39,6 +40,7 @@
     "stream-meter": "^1.0.4"
   },
   "devDependencies": {
+    "@types/node": "^18.14.2",
     "babel-eslint": "^7.2.3",
     "chai": "^4.1.0",
     "chai-http": "^3.0.0",

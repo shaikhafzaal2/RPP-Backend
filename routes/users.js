@@ -69,5 +69,32 @@ router.post('/register',authMiddleware, (req, res, next) => {
 });
 
 
+/**
+ * @swagger
+ * /users/deleteAll:
+ *   delete:
+ *     security:
+ *       - Bearer: []   
+ *     tags:
+ *       - Users
+ *     description: Deletes all users
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Successfully created
+ *       400:
+ *         description: Unauthorized access to api
+ *       404:
+ *         description: Not found or record not found
+ */
+router.delete('/deleteAll',authMiddleware,(req, res, next) => {
+  UserService.deleteAllUser((result) => {
+    console.log(result);
+    return res.json(result);
+  })
+ 
+});
+
 
 module.exports = router;
