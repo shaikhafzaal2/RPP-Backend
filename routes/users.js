@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require("../models/User.js");
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+
 const { UserService } = require('../services/user/userService.js');
 const authMiddleware = require('../middleware/checkAuth.js');
 
@@ -64,7 +62,36 @@ router.get('/', function (req, res, next) {
 router.post('/register',authMiddleware, (req, res, next) => {
   UserService.checkExistAndSave(req.body, (result) => {
     return res.json(result);
-  })
+  },next)
+ 
+});
+
+/**
+* @swagger
+* /users/{id}:
+*   get:
+*     tags:
+*       - Users
+*     description: Return a single user
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: id
+*         description: homeAccountId
+*         in: path
+*         required: true
+*         type: string
+*     responses:
+*       200:
+*         description: A single user
+*         schema:
+*           $ref: '#/definitions/User'
+*
+*/
+router.get('/:id', (req,res,next) => {
+ UserService.findUser(req.params.id, (result) => {
+      return res.json(result);
+    })
  
 });
 

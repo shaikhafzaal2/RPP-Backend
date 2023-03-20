@@ -14,6 +14,9 @@ var multer = require('multer');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var profiles = require('./routes/profiles');
+
+
 // var products = require('./routes/products');
 // var protects = require('./middleware/protects');
 var companys = require('./routes/companys');
@@ -32,6 +35,7 @@ var swaggerJsDoc = require('swagger-jsdoc');
 var swaggerconf = require('./config/swaggerconf');
 const authMiddleware = require('./middleware/checkAuth');
 const cors = require('cors');
+
 
 
 var swaggerSpec = swaggerJsDoc(swaggerconf.swaggerOptions);
@@ -64,6 +68,7 @@ app.use('/', index);
 
 app.use('/companys', companys);
 app.use('/users', users);
+app.use('/profiles',profiles)
 // app.use('/api', protects);
 // app.use('/products', products);
 // app.use('/vehicletypes', vehicletypes);
@@ -88,6 +93,8 @@ var allowCrossDomain = function(req, res, next) {
 }
 
 app.use(allowCrossDomain);
+
+
 /* configure the storage in multer */
 
 /** check email send to gmail **/

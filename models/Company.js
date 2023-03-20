@@ -7,22 +7,26 @@ let mongoose = require('mongoose');
 *     properties:
 *       name:
 *          type: string
-*       position:
-*          type: string
-*       eligibility:
-*          type: string
-*       ctc:
-*          type: string
-*       internship:
+*       type:
 *          type: string
 *       jobLocation:
 *          type: string
+*       faculty:
+*          type: string
+*       role:
+*          type: string
+*       ctc:
+*          type: number
 *       date:
 *          type: date
+*       aboutCompany:
+*          type: string
 *       jd:
 *          type: string
-*       additionalInformation:
+*       requiredQualifications:
 *          type: string
+*       requiredcgpa:
+*          type: number
 */
 
 let CompanySchema = new mongoose.Schema({
@@ -30,33 +34,40 @@ let CompanySchema = new mongoose.Schema({
       type:String,
       required:true
   },
-  position:{
+  type:{
       type:String
   },
-  eligibility:{
+  jobLocation:{
       type:String,
       required:true
   },
+  faculty:{
+      type:String,
+  },
+  role:{
+      type:String,
+  },
   ctc:{
-      type:String,
-  },
-  internship:{
-      type:String,
-  },
-  jobLocation:{
-      type:String
+      type:Number
   },
   date:
   {
       type:Date
   },
+  aboutCompany:
+  {
+      type:String
+  }, 
   jd:
   {
       type:String
   }, 
-  additionalInformation:{
+  requiredQualifications:{
       type:String
    },
+   requiredcgpa:{
+    type:Number
+},
 });
 
 module.exports = mongoose.model('Company', CompanySchema);

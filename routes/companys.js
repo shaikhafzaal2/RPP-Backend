@@ -106,6 +106,8 @@ router.post('/',authMiddleware, (req,res, next) => {
 * @swagger
 *   /companys/{id}:
 *     put:
+*        security:
+*         - Bearer: []  
 *        tags:
 *         - Companys
 *        description: Update the company information
@@ -131,7 +133,7 @@ router.post('/',authMiddleware, (req,res, next) => {
 *           404:
 *               description: Not found or record not found
 */
-router.put('/:id', (req,res,next) => {
+router.put('/:id',authMiddleware, (req,res,next) => {
   Company.findByIdAndUpdate(req.params.id, req.body, (err,company) => {
     if(err) return next(err);
     res.json(company);
@@ -142,6 +144,8 @@ router.put('/:id', (req,res,next) => {
 * @swagger
 *   /companys/{id}:
 *     delete:
+*        security:
+*         - Bearer: []   
 *        tags:
 *         - Companys
 *        description: Deleted the company information
@@ -167,7 +171,7 @@ router.put('/:id', (req,res,next) => {
 *           404:
 *               description: Not found or record not found
 */
-router.delete('/:id',(req,res, next) => {
+router.delete('/:id', authMiddleware,(req,res, next) => {
   Company.findByIdAndRemove(req.params.id, req.body, (err, company) => {
     if(err) return next(err);
     res.json(company);

@@ -38,7 +38,8 @@
     "pdfkit": "^0.8.3",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2",
-    "stream-meter": "^1.0.4"
+    "stream-meter": "^1.0.4",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.14.2",

@@ -3,7 +3,8 @@ let Profile = require('../../models/Profile');
 
 module.exports.ProfileService = {
 
- checkExistAndSave: (objProfile, cb) =>{    
+ checkExistAndSave: (objProfile,res, cb, next) =>{  
+  console.log("image uri is: "+ res.locals.profilePic);
   Profile.findOne({
       homeAccountId: objProfile.homeAccountId
     }, (err, user) => {
@@ -14,7 +15,16 @@ module.exports.ProfileService = {
           homeAccountId: objProfile.homeAccountId,
           name: objProfile.name,
           email: objProfile.email,      
-          admin: objProfile.admin,     
+          profilePic: res.locals.profilePic,
+          degree: objProfile.degree,
+          faculty: objProfile.faculty,
+          phoneNumber: objProfile.phoneNumber,
+          stream: objProfile.stream,
+          cgpa: objProfile.cgpa,
+          startYear: objProfile.startYear,
+          endYear: objProfile.endYear,
+          resume:res.locals.resume,
+          programme: objProfile.programme,   
         }
         console.log(newProfile)
         Profile.create(newProfile, function (err, post) {
@@ -26,17 +36,27 @@ module.exports.ProfileService = {
         
       } else if (user) {
         let updateUser = {
-            homeAccountId: objUser.homeAccountId,
-            name: objUser.name,
-            email: objUser.email,      
-            admin: objUser.admin,     
+          homeAccountId: objProfile.homeAccountId,
+          name: objProfile.name,
+          email: objProfile.email,      
+          profilePic:  res.locals.profilePic,
+          degree: objProfile.degree,
+          faculty: objProfile.faculty,
+          phoneNumber: objProfile.phoneNumber,
+          stream: objProfile.stream,
+          cgpa: objProfile.cgpa,
+          startYear: objProfile.startYear,
+          endYear: objProfile.endYear,
+          resume:res.locals.resume,
+          programme: objProfile.programme,   
           }
           console.log(updateUser)
-          User.findOneAndUpdate(filter,  
+          const filter = { homeAccountId:objProfile.homeAccountId}
+          Profile.findOneAndUpdate(filter,  
           updateUser, null, function (err, docs) {
             if (err) return next(err);
             else{
-                cb ({ success: true, message: 'Profile Updated',user:user });
+                cb ({ success: true, message: 'Profile Updated',user:updateUser });
             }
         });
         
@@ -45,8 +65,8 @@ module.exports.ProfileService = {
     })
   },
 
-  findUser:(homeAccountId, cb) =>{
-    User.findOne({
+  findProfile:(homeAccountId, cb) =>{
+    Profile.findOne({
       homeAccountId: homeAccountId
     }, (err, user) => {
       if (err) throw err;  
@@ -54,15 +74,15 @@ module.exports.ProfileService = {
     });
   },
 
-  allUsers:(cb) =>{
-    User.find((err, users) => {
+  allProfiles:(cb) =>{
+    Profile.find((err, users) => {
       if (err) cb(err);       
       cb (users)      
     });
   },
   
-  deleteAllUser:(cb) =>{
-    User.deleteMany({ }).then(()=> cb({success: true,"message":"data deleted successfully"}))
+  deleteAllProfiles:(cb) =>{
+    Profile.deleteMany({ }).then(()=> cb({success: true,"message":"data deleted successfully"}))
       
       
     }
