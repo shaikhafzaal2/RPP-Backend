@@ -1,3 +1,5 @@
+var os = require('os');
+
 var swaggerconf = {
     swaggerOptions: {
      swaggerDefinition:  {
