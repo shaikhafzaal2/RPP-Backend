@@ -113,8 +113,8 @@ router.get('/:id', (req,res,next) => {
  */
 router.post('/register',authMiddleware, upload.any(),storeImage,storeResume, async(req, res, next) => {
   // console.log(JSON.parse( req.body.profile));
-  console.log(req.files);
-  console.log(req.body.profile?JSON.parse( req.body.profile).profilePic:req.body)
+  // console.log(req.files);
+  // console.log(req.body.profile?JSON.parse( req.body.profile).profilePic:req.body)
   ProfileService.checkExistAndSave(req.body.profile?JSON.parse( req.body.profile):req.body,res, (result) => {
     return res.json(result);
   },next)

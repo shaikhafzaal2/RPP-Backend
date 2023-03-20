@@ -4,7 +4,7 @@ let Profile = require('../../models/Profile');
 module.exports.ProfileService = {
 
  checkExistAndSave: (objProfile,res, cb, next) =>{  
-  console.log("image uri is: "+ res.locals.profilePic);
+  // console.log("image uri is: "+ res.locals.profilePic);
   Profile.findOne({
       homeAccountId: objProfile.homeAccountId
     }, (err, user) => {
