@@ -66,7 +66,7 @@ const authMiddleware = require('../middleware/checkAuth.js');
 *
 */
 router.get('/', (req,res,next)=> {
-  CompanyService.allCompanies((result)=>{
+  CompanyService.allCompanies(req.query,(result)=>{
     console.log(result);
     //  if(err) return next(err);
      res.json(result);

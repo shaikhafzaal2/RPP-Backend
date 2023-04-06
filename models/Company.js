@@ -27,6 +27,8 @@ let mongoose = require('mongoose');
 *          type: string
 *       requiredcgpa:
 *          type: number
+*       applyLink:
+*          type: string
 */
 
 let CompanySchema = new mongoose.Schema({
@@ -68,6 +70,10 @@ let CompanySchema = new mongoose.Schema({
    requiredcgpa:{
     type:Number
 },
+applyLink:
+{
+    type:String
+}, 
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
