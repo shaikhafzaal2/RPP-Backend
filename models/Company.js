@@ -13,6 +13,8 @@ let mongoose = require('mongoose');
 *          type: string
 *       faculty:
 *          type: string
+*       department:
+*          type: string
 *       role:
 *          type: string
 *       ctc:
@@ -27,6 +29,8 @@ let mongoose = require('mongoose');
 *          type: string
 *       requiredcgpa:
 *          type: number
+*       applyLink:
+*          type: string
 */
 
 let CompanySchema = new mongoose.Schema({
@@ -44,6 +48,9 @@ let CompanySchema = new mongoose.Schema({
   faculty:{
       type:String,
   },
+  department:{
+    type:String,
+},
   role:{
       type:String,
   },
@@ -68,6 +75,10 @@ let CompanySchema = new mongoose.Schema({
    requiredcgpa:{
     type:Number
 },
+applyLink:
+{
+    type:String
+}, 
 });
 
 module.exports = mongoose.model('Company', CompanySchema);

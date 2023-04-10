@@ -16,6 +16,53 @@ const authMiddleware = require('../middleware/checkAuth.js');
 *     description: Return a single company
 *     produces:
 *       - application/json
+*     parameters:
+*       - in: query
+*         name: name
+*         schema:
+*           type: string
+*         description: Filter by company name (case-insensitive regex)
+*       - in: query
+*         name: type
+*         schema:
+*           type: string
+*         description: Filter by company type (case-insensitive regex)
+*       - in: query
+*         name: jobLocation
+*         schema:
+*           type: string
+*         description: Filter by job location (case-insensitive regex)
+*       - in: query
+*         name: faculty
+*         schema:
+*           type: string
+*         description: Filter by faculty (case-insensitive regex)
+*       - in: query
+*         name: department
+*         schema:
+*           type: string
+*         description: Filter by department (case-insensitive regex)
+*       - in: query
+*         name: role
+*         schema:
+*           type: string
+*         description: Filter by role (case-insensitive regex)
+*       - in: query
+*         name: requiredQualifications
+*         schema:
+*           type: string
+*         description: Filter by required qualifications (case-insensitive regex)
+*       - in: query
+*         name: minctc
+*         schema:
+*           type: number
+*           minimum: 0
+*         description: Filter by minimum CTC
+*       - in: query
+*         name: maxctc
+*         schema:
+*           type: number
+*         description: Filter by maximum CTC
 *     responses:
 *       200:
 *         description: A company list
@@ -24,7 +71,7 @@ const authMiddleware = require('../middleware/checkAuth.js');
 *
 */
 router.get('/', (req,res,next)=> {
-  CompanyService.allCompanies((result)=>{
+  CompanyService.allCompanies(req.query,(result)=>{
     console.log(result);
     //  if(err) return next(err);
      res.json(result);

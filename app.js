@@ -17,14 +17,14 @@ var users = require('./routes/users');
 var profiles = require('./routes/profiles');
 
 
-// var products = require('./routes/products');
-// var protects = require('./middleware/protects');
+var faculties = require('./routes/faculty');
+var departments = require('./routes/departments');
 var companys = require('./routes/companys');
 // var fileuploads = require('./routes/fileuploads');
 // var items = require('./routes/items');
 // var drivers = require('./routes/drivers');
 // var resets = require('./routes/resets');
-// var vehicletypes = require('./routes/vehicle/vehicletypes');
+var companytypes = require('./routes/companyType');
 // var emails = require('./routes/emails');
 // var uploads = require('./routes/uploads');
 
@@ -69,9 +69,9 @@ app.use('/', index);
 app.use('/companys', companys);
 app.use('/users', users);
 app.use('/profiles',profiles)
-// app.use('/api', protects);
-// app.use('/products', products);
-// app.use('/vehicletypes', vehicletypes);
+app.use('/departments', departments);
+app.use('/faculties', faculties);
+app.use('/companytypes', companytypes);
 // app.use('/fileuploads', fileuploads);
 // app.use('/items', items);
 // app.use('/drivers', drivers);
