@@ -13,6 +13,8 @@ let mongoose = require('mongoose');
 *          type: string
 *       faculty:
 *          type: string
+*       department:
+*          type: string
 *       role:
 *          type: string
 *       ctc:
@@ -46,6 +48,9 @@ let CompanySchema = new mongoose.Schema({
   faculty:{
       type:String,
   },
+  department:{
+    type:String,
+},
   role:{
       type:String,
   },

@@ -38,6 +38,11 @@ const authMiddleware = require('../middleware/checkAuth.js');
 *           type: string
 *         description: Filter by faculty (case-insensitive regex)
 *       - in: query
+*         name: department
+*         schema:
+*           type: string
+*         description: Filter by department (case-insensitive regex)
+*       - in: query
 *         name: role
 *         schema:
 *           type: string
