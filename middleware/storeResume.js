@@ -5,12 +5,14 @@ const containerClient = blobServiceClient.getContainerClient(containerNameResume
 
 async function storeResume(req, res, next) {
   if (!req.files) {
-    return next(new Error('No resume file uploaded'));
-  }
+    console.log('No resume file uploaded');
+    return next();
+  } else {
 
   const { originalname, mimetype, buffer } = req.files[1];
   const resumeName = `${Date.now()}-${originalname}`;
   const blockBlobClient = containerClient.getBlockBlobClient(resumeName);
+  
   // console.log("resume name is"+originalname);
   try {
     // Upload the resume to Azure Blob Storage
@@ -27,6 +29,8 @@ async function storeResume(req, res, next) {
   } catch (err) {
     next(err);
   }
+
+}
 }
 
 module.exports = storeResume;

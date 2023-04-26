@@ -111,7 +111,7 @@ router.get('/:id', (req,res,next) => {
  *       404:
  *         description: Not found or record not found
  */
-router.post('/register',authMiddleware, upload.any(),storeImage,storeResume, async(req, res, next) => {
+router.post('/register', authMiddleware, upload.any(),storeImage,storeResume, async(req, res, next) => {
   // console.log(JSON.parse( req.body.profile));
   // console.log(req.files);
   // console.log(req.body.profile?JSON.parse( req.body.profile).profilePic:req.body)

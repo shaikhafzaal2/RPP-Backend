@@ -17,19 +17,6 @@ let CompanyTypeService = {
       })
     })
   },
-  deleteCompanyType: (id, cb) => {
-    return new Promise((resolve, reject) => {
-        CompanyType.findByIdAndUpdate(id,objProduct)
-      .then(response => {
-        cb(response);
-        resolve(response)
-      })
-      .catch(error => {
-        cb(error)
-        resolve(error)
-      });
-    });
-  }
 }
 
 module.exports = CompanyTypeService;

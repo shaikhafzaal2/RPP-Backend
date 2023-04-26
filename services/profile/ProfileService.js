@@ -15,7 +15,7 @@ module.exports.ProfileService = {
           homeAccountId: objProfile.homeAccountId,
           name: objProfile.name,
           email: objProfile.email,      
-          profilePic: res.locals.profilePic,
+          profilePic:objProfile.profilePic?objProfile.profilePic: res.locals.profilePic,
           degree: objProfile.degree,
           faculty: objProfile.faculty,
           phoneNumber: objProfile.phoneNumber,
@@ -23,7 +23,7 @@ module.exports.ProfileService = {
           cgpa: objProfile.cgpa,
           startYear: objProfile.startYear,
           endYear: objProfile.endYear,
-          resume:res.locals.resume,
+          resume:objProfile.resume?objProfile.resume: res.locals.resume,
           programme: objProfile.programme,   
         }
         console.log(newProfile)
@@ -39,7 +39,7 @@ module.exports.ProfileService = {
           homeAccountId: objProfile.homeAccountId,
           name: objProfile.name,
           email: objProfile.email,      
-          profilePic:  res.locals.profilePic,
+          profilePic:objProfile.profilePic?objProfile.profilePic: res.locals.profilePic,
           degree: objProfile.degree,
           faculty: objProfile.faculty,
           phoneNumber: objProfile.phoneNumber,
@@ -47,7 +47,7 @@ module.exports.ProfileService = {
           cgpa: objProfile.cgpa,
           startYear: objProfile.startYear,
           endYear: objProfile.endYear,
-          resume:res.locals.resume,
+          resume:objProfile.resume?objProfile.resume: res.locals.resume,
           programme: objProfile.programme,   
           }
           console.log(updateUser)

@@ -5,12 +5,14 @@ const containerClient = blobServiceClient.getContainerClient(containerNameProfil
 
 async function storeImage(req, res, next) {
   if (!req.files) {
-    return next(new Error('No image file uploaded'));
-  }
+    console.log('No image file uploaded');
+    return next();
+  } else{
 
   const { originalname, mimetype, buffer } = req.files[0];
   const imageName = `${Date.now()}-${originalname}`;
   const blockBlobClient = containerClient.getBlockBlobClient(imageName);
+  
   // console.log("image name is"+originalname);
   try {
     // Upload the image to Azure Blob Storage
@@ -27,6 +29,7 @@ async function storeImage(req, res, next) {
   } catch (err) {
     next(err);
   }
+}
 }
 
 module.exports = storeImage;
