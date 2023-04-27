@@ -8,6 +8,7 @@ const CompanyTypeService = require('../services/companyType/CompanyTypeService')
 
 
 
+
 /**
 * @swagger
 * /companyTypes:
@@ -64,6 +65,36 @@ router.post('/', function(req,res,next){
   CompanyTypeService.saveCompanyType(req.body, (result) => {
     return res.json(result);
   })
+});
+
+/**
+* @swagger
+*   /companyTypes/{id}:
+*     delete:
+*        tags:
+*         - CompanyTypes
+*        description: Deleted the faculty information
+*        produces:
+*         - application/json
+*        parameters:
+*         - name: id
+*           description: "using for deleting the company information"
+*           in: path
+*           required: true
+*           type: string
+*        responses:
+*           200:
+*               description: company delete successfully
+*           400:
+*               description: Unauthorized access to api
+*           404:
+*               description: Not found or record not found
+*/
+router.delete('/:id', (req,res, next) => {
+  CompanyType.findByIdAndRemove(req.params.id, req.body, (err, company) => {
+    if(err) return next(err);
+    res.json(company);
+  });
 });
 
 module.exports = router;

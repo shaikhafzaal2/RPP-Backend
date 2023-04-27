@@ -4,20 +4,20 @@ const Department = require('../../models/Department');
 
 let DepartmentService = {
   saveDepartment: (objDepartment,cb) => {
-    return new Promise((resolve, reject) => {
+   
         Department.create(objDepartment)
       .then(response => {
           cb(response);
-          resolve(response);
+          // resolve(response);
       })
       .catch(error => {
         cb(error);
-        resolve(error);
+        // resolve(error);
       })
-    })
+   
   },
   deleteDepartment: (id, cb) => {
-    return new Promise((resolve, reject) => {
+     ((resolve, reject) => {
         Department.findByIdAndUpdate(id,objProduct)
       .then(response => {
         cb(response);

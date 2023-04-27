@@ -9,11 +9,14 @@ var mongoose = require('mongoose');
 *          type: string
 *       domain:
 *          type: string
+*       keyword:
+*          type: string
 */
 
 var FacultySchema = new mongoose.Schema({
   name: String,
   domain: String,
+  keyword:String,
   update_at:{ type: Date, default:Date.now},
 });
 

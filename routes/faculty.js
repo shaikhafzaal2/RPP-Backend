@@ -62,4 +62,34 @@ router.post('/', function(req,res,next){
   })
 });
 
+/**
+* @swagger
+*   /faculties/{id}:
+*     delete:
+*        tags:
+*         - Faculties
+*        description: Deleted the faculty information
+*        produces:
+*         - application/json
+*        parameters:
+*         - name: id
+*           description: "using for deleting the faculty information"
+*           in: path
+*           required: true
+*           type: string
+*        responses:
+*           200:
+*               description: faculty delete successfully
+*           400:
+*               description: Unauthorized access to api
+*           404:
+*               description: Not found or record not found
+*/
+router.delete('/:id', (req,res, next) => {
+  Faculty.findByIdAndRemove(req.params.id, req.body, (err, company) => {
+    if(err) return next(err);
+    res.json(company);
+  });
+});
+
 module.exports = router;

@@ -204,12 +204,6 @@ router.put('/:id',authMiddleware, (req,res,next) => {
 *           in: path
 *           required: true
 *           type: string
-*         - name: company
-*           description : "company information "
-*           in: body
-*           required : true
-*           schema:
-*             $ref: '#/definitions/Company'
 *        responses:
 *           200:
 *               description: company delete successfully

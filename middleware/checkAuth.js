@@ -36,7 +36,7 @@ const validateToken = async (accessToken) => {
 
   let signingKey = await getSigningKeyPromise(kid, client);
   console.log(signingKey);
-  decodedAndVerified = jwt.verify(accessToken, signingKey);
+  decodedAndVerified = jwt.verify(accessToken, signingKey, { ignoreExpiration: false });
   console.log(decodedAndVerified);
   if (!decodedAndVerified) {
     throw Error("verification returned null");
@@ -45,9 +45,9 @@ const validateToken = async (accessToken) => {
   // // Verify the access token claims
   const decodedToken = jwt.decode(accessToken);
   
-  if (Date.now() >= decodedToken.exp * 1000) {
-    throw new Error('Access token has expired');
-  }
+  // if (Date.now() >= decodedToken.exp * 1000) {
+  //   throw new Error('Access token has expired');
+  // }
 
   // Token is valid
   return true;
