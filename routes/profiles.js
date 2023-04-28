@@ -112,9 +112,10 @@ router.get('/:id', (req,res,next) => {
  *         description: Not found or record not found
  */
 router.post('/register', authMiddleware, upload.any(),storeImage,storeResume, async(req, res, next) => {
+  
   // console.log(JSON.parse( req.body.profile));
-  // console.log(req.files);
-  // console.log(req.body.profile?JSON.parse( req.body.profile).profilePic:req.body)
+  // console.log("files are"+req.files.length);
+  // console.log(req.body.profile?JSON.parse( req.body.profile):req.body)
   ProfileService.checkExistAndSave(req.body.profile?JSON.parse( req.body.profile):req.body,res, (result) => {
     return res.json(result);
   },next)
