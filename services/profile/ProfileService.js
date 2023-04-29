@@ -15,7 +15,7 @@ module.exports.ProfileService = {
           homeAccountId: objProfile.homeAccountId,
           name: objProfile.name,
           email: objProfile.email,      
-          profilePic:objProfile.profilePic?objProfile.profilePic: res.locals.profilePic,
+          profilePic: res.locals.profilePic? res.locals.profilePic: objProfile.profilePic,
           degree: objProfile.degree,
           faculty: objProfile.faculty,
           phoneNumber: objProfile.phoneNumber,
@@ -23,7 +23,7 @@ module.exports.ProfileService = {
           cgpa: objProfile.cgpa,
           startYear: objProfile.startYear,
           endYear: objProfile.endYear,
-          resume:objProfile.resume?objProfile.resume: res.locals.resume,
+          resume: res.locals.resume? res.locals.resume:objProfile.resume,
           programme: objProfile.programme,   
         }
         console.log(newProfile)
@@ -39,7 +39,7 @@ module.exports.ProfileService = {
           homeAccountId: objProfile.homeAccountId,
           name: objProfile.name,
           email: objProfile.email,      
-          profilePic:objProfile.profilePic?objProfile.profilePic: res.locals.profilePic,
+          profilePic:res.locals.profilePic? res.locals.profilePic: objProfile.profilePic,
           degree: objProfile.degree,
           faculty: objProfile.faculty,
           phoneNumber: objProfile.phoneNumber,
@@ -47,7 +47,7 @@ module.exports.ProfileService = {
           cgpa: objProfile.cgpa,
           startYear: objProfile.startYear,
           endYear: objProfile.endYear,
-          resume:objProfile.resume?objProfile.resume: res.locals.resume,
+          resume:res.locals.resume? res.locals.resume:objProfile.resume,
           programme: objProfile.programme,   
           }
           console.log(updateUser)
@@ -66,11 +66,11 @@ module.exports.ProfileService = {
   },
 
   findProfile:(homeAccountId, cb) =>{
-    Profile.findOne({
+    Profile.find({
       homeAccountId: homeAccountId
     }, (err, user) => {
       if (err) throw err;  
-      if (user) cb(user);
+      if (user) cb(user[0]);
     });
   },
 

@@ -4,8 +4,10 @@ const { containerNameProfile, blobServiceClient } = require('../config/azureStor
 const containerClient = blobServiceClient.getContainerClient(containerNameProfile);
 
 async function storeImage(req, res, next) {
-  if (!req.files) {
+  if (!req.files || req.files.length === 0) {
+    // const { originalname, mimetype, buffer } = req.files[0];
     console.log('No image file uploaded');
+    // console.log(originalname);
     return next();
   } else{
 

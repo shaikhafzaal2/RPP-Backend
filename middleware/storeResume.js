@@ -4,7 +4,7 @@ const { containerNameResume, blobServiceClient } = require('../config/azureStora
 const containerClient = blobServiceClient.getContainerClient(containerNameResume);
 
 async function storeResume(req, res, next) {
-  if (!req.files) {
+  if (!req.files || req.files.length === 0) {
     console.log('No resume file uploaded');
     return next();
   } else {
