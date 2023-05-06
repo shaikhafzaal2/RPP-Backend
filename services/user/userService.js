@@ -14,7 +14,10 @@ module.exports.UserService = {
           homeAccountId: objUser.homeAccountId,
           name: objUser.name,
           email: objUser.email,      
-          admin: objUser.admin,     
+          admin: objUser.admin,
+          eligible: true, 
+          phoneNumber: objUser.phoneNumber || null,
+          appliedCompanies: objUser.appliedCompanies || []  
         }
         console.log(newUser)
         User.create(newUser, function (err, post) {
@@ -24,11 +27,26 @@ module.exports.UserService = {
           
         });
         
-      } else if (user) {
+      } else if (objUser.eligible!= undefined || objUser.appliedCompanies ) {
+        let updateUser = {
+          eligible:objUser.eligible!= undefined?objUser.eligible:user.eligible,      
+          appliedCompanies: objUser.appliedCompanies || user.appliedCompanies  
+        }
+        const filter = { homeAccountId:objUser.homeAccountId};
+        User.findOneAndUpdate(filter,  
+          updateUser, null, function (err, docs) {
+            if (err) return next(err);
+            else{
+                cb ({ success: true, message: 'User Updated',user:docs });
+            }
+           })      
+      } 
+      else {
+       
         cb ({ success: true, message: ' User found',user:user });
-      
-      }
-    })
+     
+    }}
+    );
   },
 
   findUser:(homeAccountId, cb) =>{
@@ -40,10 +58,21 @@ module.exports.UserService = {
     });
   },
 
-  allUsers:(cb) =>{
-    User.find((err, users) => {
-      if (err) cb(err);       
-      cb (users)      
+  allUsers: (objrequest, cb) => {
+    const { search } = objrequest;
+    const queryObj = {};
+
+    if (search) {
+      const searchFields = ["name", "email"];
+      const searchQuery = searchFields.map((field) => {
+        return { [field]: { $regex: new RegExp(search, "i") } };
+      });
+      search =='no'?queryObj['eligible'] = false:  queryObj["$or"] = searchQuery;
+    }
+
+    User.find(queryObj, (err, users) => {
+      if (err) cb(err);
+      cb(users);
     });
   },
   

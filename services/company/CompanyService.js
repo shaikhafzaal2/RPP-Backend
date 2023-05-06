@@ -14,14 +14,19 @@ module.exports.CompanyService = {
         queryObj['ctc'] = { $gte: objrequest[param] };
       } else if (param === 'maxctc') {
         queryObj['ctc'] = { $lte: objrequest[param] };
+      } else if (param === "search") {
+        const searchFields = ["name", "type", "jobLocation", "faculty", "role", "jd", "aboutCompany", "required Qualifications"];
+        const searchQuery = searchFields.map((field) => {
+          return { [field]: { $regex: new RegExp(objrequest[param], "i") } };
+        });
+        queryObj["$or"] = searchQuery;
       }
     });
-
+    
+    
     console.log('params are:'+ JSON.stringify( queryObj));
 
 
-    // const companies = Company.find(queryObj).sort({ date: -1 }).exec();
-    //   cb (companies);
        Company.find({ $and: [queryObj] },(err, companies) => {
          if (err) cb(err);       
          cb(companies);
