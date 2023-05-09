@@ -13,6 +13,12 @@ const authMiddleware = require('../middleware/checkAuth.js');
 *     description: Returns a list of users
 *     produces:
 *       - application/json
+*     parameters:
+*       - in: query
+*         name: search
+*         schema:
+*           type: string
+*         description: search across all fields
 *     responses:
 *       200:
 *         description: A user list
@@ -22,14 +28,10 @@ const authMiddleware = require('../middleware/checkAuth.js');
 */
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  UserService.allUsers((result)=>{
+  UserService.allUsers(req.query,(result)=>{
     console.log(result);
     return res.json(result);
-  })
-  // User.find((err, users) => {
-  //   if (err) return next(err);
-  //   res.json(users)
-  // });
+  }) 
 });
 
 
@@ -48,7 +50,6 @@ router.get('/', function (req, res, next) {
  *       - name: user
  *         description: user object
  *         in: body
- *         required: true
  *         schema:
  *           $ref: '#/definitions/User'
  *     responses:

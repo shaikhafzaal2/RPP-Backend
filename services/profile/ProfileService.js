@@ -1,4 +1,5 @@
 let Profile = require('../../models/Profile');
+const User = require('../../models/User');
 
 
 module.exports.ProfileService = {
@@ -26,16 +27,29 @@ module.exports.ProfileService = {
           resume: res.locals.resume? res.locals.resume:objProfile.resume,
           programme: objProfile.programme,   
         }
-        console.log(newProfile)
+        // console.log("new profile is"+ JSON.stringify( newProfile));
+        let updateUser = {
+          phoneNumber:objProfile.phoneNumber,
+        }
+        const filter = { homeAccountId:objProfile.homeAccountId};
+        User.findOneAndUpdate(filter,  
+          updateUser,function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!"+err);
+            }
+        
+            console.log("phone no update res "+doc);
+        });
         Profile.create(newProfile, function (err, post) {
           if (err) return next(err);
           console.log('User Saved Succesfully');
+          User.fin
           cb ({ success: true, message: 'Profile Created',profile:post });
           
         });
         
       } else if (user) {
-        let updateUser = {
+        let updateProfile = {
           homeAccountId: objProfile.homeAccountId,
           name: objProfile.name,
           email: objProfile.email,      
@@ -50,10 +64,22 @@ module.exports.ProfileService = {
           resume:res.locals.resume? res.locals.resume:objProfile.resume,
           programme: objProfile.programme,   
           }
-          console.log(updateUser)
+          
           const filter = { homeAccountId:objProfile.homeAccountId}
+
+          let updateUser = {
+            phoneNumber:objProfile.phoneNumber,
+          }
+       
+          User.findOneAndUpdate(filter,updateUser,function(err, doc){
+            if(err){
+                console.log("Something wrong when updating data!"+err);
+            }
+        
+            console.log("phone no update res "+doc);
+        });
           Profile.findOneAndUpdate(filter,  
-          updateUser, null, function (err, docs) {
+          updateProfile, null, function (err, docs) {
             if (err) return next(err);
             else{
                 cb ({ success: true, message: 'Profile Updated',user:updateUser });

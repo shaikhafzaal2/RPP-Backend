@@ -4,6 +4,7 @@ let mongoose = require('mongoose');
 let Company = require('../models/Company.js');
 const { CompanyService } = require('../services/company/CompanyService.js');
 const authMiddleware = require('../middleware/checkAuth.js');
+const upload = require('../middleware/upload.js');
 
 
 
@@ -53,6 +54,11 @@ const authMiddleware = require('../middleware/checkAuth.js');
 *           type: string
 *         description: Filter by required qualifications (case-insensitive regex)
 *       - in: query
+*         name: search
+*         schema:
+*           type: string
+*         description: search across all fields
+*       - in: query
 *         name: minctc
 *         schema:
 *           type: number
@@ -73,7 +79,7 @@ const authMiddleware = require('../middleware/checkAuth.js');
 router.get('/', (req,res,next)=> {
   CompanyService.allCompanies(req.query,(result)=>{
     console.log(result);
-    //  if(err) return next(err);
+    
      res.json(result);
   });
 });
@@ -133,12 +139,10 @@ router.get('/:id', (req,res,next) => {
  *       404:
  *         description: Not found or record not found
  */
-router.post('/',authMiddleware, (req,res, next) => {
-  //  Company.create(req.body, (err,company) => {
-  //     if(err) return next(err);
-  //     res.json(company);
-  //  });
-   var newCompany = new Company(req.body);
+router.post('/', authMiddleware, upload.none(), (req,res, next) => {
+
+  console.log(req.body.payload);
+   var newCompany = new Company(req.body.payload);
 
    newCompany.save((err,company) => {
       if(err) {
