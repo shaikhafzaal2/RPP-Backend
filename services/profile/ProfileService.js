@@ -27,11 +27,11 @@ module.exports.ProfileService = {
           resume: res.locals.resume? res.locals.resume:objProfile.resume,
           programme: objProfile.programme,   
         }
-        console.log(newProfile)
+        // console.log("new profile is"+ JSON.stringify( newProfile));
         let updateUser = {
           phoneNumber:objProfile.phoneNumber,
         }
-        const filter = { homeAccountId:objUser.homeAccountId};
+        const filter = { homeAccountId:objProfile.homeAccountId};
         User.findOneAndUpdate(filter,  
           updateUser,function(err, doc){
             if(err){
