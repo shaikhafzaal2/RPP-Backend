@@ -1,11 +1,37 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 let Company = require('../models/Company.js');
 const { CompanyService } = require('../services/company/CompanyService.js');
 const authMiddleware = require('../middleware/checkAuth.js');
 const upload = require('../middleware/upload.js');
+const User = require('../models/User.js');
 
+
+// const transporter = nodemailer.createTransport({
+//   service: 'outlook',
+//   auth: {
+//     user: '19etcs002118@msruas.ac.in',
+//     pass: '', // Replace with your actual password
+//   },
+//   host: 'smtp.office365.com',
+//   port: 587,
+//   secure: false,
+//   requireTLS: true,
+//   tls: {
+//     ciphers: 'SSLv3',
+//   },
+// });
+
+// Configure your email transport
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'ruasplacements@gmail.com',
+    pass: 'pcahslancybictiv', // Replace with your actual password
+  },
+});
 
 
 /**
@@ -141,16 +167,66 @@ router.get('/:id', (req,res,next) => {
  */
 router.post('/', authMiddleware, upload.none(), (req,res, next) => {
 
-  console.log(req.body.payload);
-   var newCompany = new Company(req.body.payload);
-
-   newCompany.save((err,company) => {
-      if(err) {
-        res.send(err);
-      } else {
-        res.json({message:"Company saved successfully", company: company })
-      }
-   });
+ try {
+   console.log(req.body.payload);
+    var newCompany = new Company(req.body.payload);
+ 
+    newCompany.save((err,company) => {
+       if(err) {
+        console.log(err);
+       } else {
+         console.log({message:"Company saved successfully", company: company })
+       
+ 
+        // Fetch the list of emails from the User model
+        // const users = User.find({}, 'email');
+        User.find((err, users) => {
+          if (err) console.log(err);       
+          console.log(users);      
+        
+        console.log(users);
+        const emails = users.map(user => user.email.toLowerCase());
+        console.log("List of emails: "+ emails );
+ 
+        const mailOptions = {
+         from: 'ruasplacements@gmail.com',
+         to: emails.join(','),
+         subject: `${company.name} Placement Drive`,
+         html: `
+        <h1>New Upcoming Placement Drive at ${company.name}</h1>
+        <p><strong>Name: </strong>${company.name}</p>
+        <p><strong>Type: </strong>${company.type}</p>
+        <p><strong>Job Location: </strong>${company.jobLocation}</p>
+        <p><strong>Faculty: </strong>${company.faculty}</p>
+        <p><strong>Department: </strong>${company.department}</p>
+        <p><strong>Role: </strong>${company.role}</p>
+        <p><strong>CTC: </strong>${company.ctc} LPA</p>
+        <p><strong>Apply By : </strong>${company.date}</p>
+        <p><strong>About Company:</strong></p>
+        <p>${company.aboutCompany}</p>
+        <p><strong>Job Description: </strong></p>
+        <p>${company.jd}</p>
+        <p><strong>Required Qualifications:</strong></p>
+        <p> ${company.requiredQualifications}</p>
+        <p><strong>Required CGPA:</strong> ${company.requiredcgpa}</p>
+        <p><strong>Apply Link:</strong> https://shaikhafzaal2.github.io/RPP-Frontend/#/description/${company._id}</p>
+      `,        
+       };
+ 
+       transporter.sendMail(mailOptions, (error, info) => {
+         if (error) {
+           console.log('Error sending email:', error);
+         } else {
+           console.log('Email sent:', info.response);
+         }
+       });
+      });
+      res.json({message:"Company saved successfully and email sent", company: company })
+    }
+  });} catch (error) {
+  console.log("This error occured: "+error)
+  res.status(500).json({ error: 'An error occurred' });
+ }
 });
 
 /**
